@@ -126,4 +126,15 @@ Methods
 
 `after` - register an after callback
 
-`inspect - returns the variables set on the instance
+`inspect` - returns the variables set on the instance
+
+
+Problems? Issues? Enhancements?
+===============================
+
+__Send a pull request!!! Don't know how? [LEARN!!!][1]__
+
+Seriously, if open a ticket for an issue or an enhancement and it doesn't have a pull request, I will
+delete your ticket. Simple as that. Don't like it? Don't use my code.
+
+[1]: https://help.github.com/articles/using-pull-requests
