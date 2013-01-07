@@ -16,7 +16,7 @@ such things. You would use the project to interact with the API after you have a
 
 Creating an API Wrapper
 =======================
-To use, just create a CFC as a warapper for the service that you want to hit against and extend the
+To use, just create a CFC as a wrapper for the service that you want to hit against and extend the
 Base.cfc in the lib directory.
 
 ```coldfusion
@@ -50,10 +50,10 @@ and any defaults that should be pasted with each request (such as headers and/or
 </cfcomponent>
 ```
 
-A good example of using default is when an API calls for passing an access token with each request.
+A good example of using these defaults is when an API calls for passing an access token with each request.
 Rather then having to worry about passing the access token to each method in your wrapper or asking the
-user to provid it with each method call, you can please the access token in the
-`variables.instance.defaults.params` scope and they will be pasted for you with each request.
+user to provide it with each method call, you can place the access token in the
+`variables.instance.defaults.params` scope and they will be passed for you with each request.
 
 For further examples, see the wrappers that come with this project in the `lib` directory.
 
@@ -62,35 +62,36 @@ API Calling Methods
 ===================
 
 To make things easier, this wrapper provides methods for calling the API. The `get`, `post` and `delete`
-method are shortcuts for calling the CFHTTP and CFHTTPPARAM tags and returning the results. Depending
+methods are shortcuts for calling the CFHTTP and CFHTTPPARAM tags and returning the results. Depending
 upon which method you use, underneath it will automatically know to use either `URL` for `FormFields`
 when calling your API. `get` and `delete` use the `URL` and `post` will use the `FormFields`.
 
 Each method takes the endpoint as the first argument and then any addition params or headers. An example
-of using the `get` method is below. Notice how compact the code is since we just can pass the `arguments`
+of using the `get` method is below. Notice how compact the code is since we can pass the `arguments`
 scope as a second parameter.
 
 ```coldfusion
-	<cffunction name="media_search" description="Search for media in a given area">
-		<cfargument name="lat" type="string" required="true" hint="Latitude of the center search coordinate.">
-		<cfargument name="lng" type="string" required="true" hint="Longitude of the center search coordinate.">
-		<cfargument name="max_timestamp" type="string" required="false" hint="A unix timestamp. All media returned will be taken earlier than this timestamp.">
-		<cfargument name="min_timestamp" type="string" required="false" hint="A unix timestamp. All media returned will be taken later than this timestamp.">
-		<cfargument name="distance" type="numeric" required="false" hint="Default is 1km.">
-		<cfreturn get("media/search", arguments)>
-	</cffunction>
+<cffunction name="media_search" description="Search for media in a given area">
+	<cfargument name="lat" type="string" required="true" hint="Latitude of the center search coordinate.">
+	<cfargument name="lng" type="string" required="true" hint="Longitude of the center search coordinate.">
+	<cfargument name="max_timestamp" type="string" required="false" hint="A unix timestamp. All media returned will be taken earlier than this timestamp.">
+	<cfargument name="min_timestamp" type="string" required="false" hint="A unix timestamp. All media returned will be taken later than this timestamp.">
+	<cfargument name="distance" type="numeric" required="false" hint="Default is 1km.">
+	<cfreturn get("media/search", arguments)>
+</cffunction>
 ```
 
 Callbacks
 =========
 
 Sometimes you will need to intercept the API call. This can be before or after the call is made. To
-things easier you can register a or multiple callback methods using the `before` or `after` methods
+make things easier you can register multiple callback methods using the `before` or `after` methods
 within your wrappers' `init` method. These callbacks will then execute in order.
 
-Below is an example of using an `after` callback is to alter the response returned from the API. By
+Below is an example of using an `after` callback to alter the response returned from the API. By
 default the Base component will return the CFHTTP struct. However, most APIs return their reponses in
-JSON. In order to do this, you can register the built in `to_json` method as an `after` callback. This
+JSON and as a convinence you would want to translate the response into native CFML datatypes.
+In order to do this, you can register the built in `to_json` method as an `after` callback. This
 will modify the response so that it will always be a deserialized json object returned.
 
 ```coldfusion
@@ -145,10 +146,15 @@ instance of the wrapper you want to use like so:
 Problems? Issues? Enhancements?
 ===============================
 
-__Send a pull request!!! Don't know how? [LEARN!!!][1]__
+_This project does not have an issue tracker._ All bug reports and enhancement request are handled
+through pull requests.
 
-Seriously, if open a ticket for an issue or an enhancement and it doesn't have a pull request, I will
-delete your ticket. Simple as that. Don't like it? Don't use my code.
+If you find a bug, you must write a failing test demostrating the problem. In the commit message provide
+an exaplanation of the bug.
 
+Any enhancement __MUST__ be coded by __YOU__, __yes YOU__, with proper tests. An explanation of the
+enhacement must be described in the commit message.
+
+[Click here to learn more about the pull request work flow][1]
 
 [1]: https://help.github.com/articles/using-pull-requests
