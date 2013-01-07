@@ -14,8 +14,8 @@ any support for registering with a service with OAuth as there are already proje
 such things. You would use the project to interact with the API after you have authenticated with OAuth.
 
 
-Using
-=====
+Creating an API Wrapper
+=======================
 To use, just create a CFC as a warapper for the service that you want to hit against and extend the
 Base.cfc in the lib directory.
 
@@ -129,6 +129,19 @@ Methods
 `inspect` - returns the variables set on the instance
 
 
+Usage
+=====
+
+Simply copy the available wrappers (or the entire lib directory) to your project. Then create an
+instance of the wrapper you want to use like so:
+
+```coldfusion
+<cfset instagram = createObject("component", "Instagram").init("YOUR_CLIENT_ID", "YOUR_ACCESS_TOKEN")>
+<cfset info = instagram.user_info("self")>
+<cfdump var="#info#">
+```
+
+
 Problems? Issues? Enhancements?
 ===============================
 
@@ -136,5 +149,6 @@ __Send a pull request!!! Don't know how? [LEARN!!!][1]__
 
 Seriously, if open a ticket for an issue or an enhancement and it doesn't have a pull request, I will
 delete your ticket. Simple as that. Don't like it? Don't use my code.
+
 
 [1]: https://help.github.com/articles/using-pull-requests
