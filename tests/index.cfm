@@ -35,7 +35,6 @@
 	</style>
 </head>
 <body>
-	
 	<cfset test = createObject("component", "Test")>
 	<cfset test.runTestPackage("cfml-restfulapis.tests.tests")>
 	<cfoutput>#test.HTMLFormatTestResults()#</cfoutput>
