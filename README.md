@@ -3,8 +3,8 @@ This project aims to make creating Restful API wrappers for CFML easier.
 Current API Wrappers
 ====================
 
- - [GotoWebinar][2]
- - [Instagram][2]
+ - [GotoWebinar][2] - [Docs][3]
+ - [Instagram][4] - [Docs][5]
 
 What it is
 ==========
@@ -164,4 +164,9 @@ enhacement must be described in the commit message.
 [Click here to learn more about the pull request work flow][1]
 
 [1]: https://help.github.com/articles/using-pull-requests
-[2]: https://github.com/rip747/cfml-restfulapis/tree/master/lib
+
+[2]: https://github.com/rip747/cfml-restfulapis/blob/master/lib/GotoWebinar.cfc
+[3]: https://developer.citrixonline.com/api-overview/gotowebinar-rest-api
+
+[4]: https://github.com/rip747/cfml-restfulapis/blob/master/lib/Instagram.cfc
+[5]: http://instagram.com/developer/endpoints/
