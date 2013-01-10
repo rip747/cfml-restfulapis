@@ -1,11 +1,7 @@
 <cfcomponent extends="cfml-restfulapis.tests.Test">
 
-	<cfset loc.domain = 'http://#cgi.http_host#/cfml-restfulapis/tests'>
-	<cfset loc.endpoint = "echo.cfm">
-	<cfset loc.path = 'cfml-restfulapis.lib.base'>
-
 	<cffunction name="setup">
-		<cfset loc.restful = createobject("component", loc.path).init(loc.domain)>
+		<cfset loc.restful = createobject("component", request.settings.libPath).init(request.settings.domain)>
 	</cffunction>
 
 	<cffunction name="test_created_instance">
@@ -15,7 +11,7 @@
 	</cffunction>
 
 	<cffunction name="test_makeHttpCall_basic">
-		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#loc.endpoint#")>
+		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#request.settings.endPoint#")>
 		<cfset assert("!StructIsEmpty(loc.a)")>
 		<cfset assert("StructKeyExists(loc.a, 'success')")>
 		<cfset assert("loc.a.success eq 1")>
@@ -30,7 +26,7 @@
 		<cfset loc.restful.before("before_callback")>
 		<cfset loc.restful.after("after_callback")>
 		
-		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#loc.endpoint#")>
+		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#request.settings.endPoint#")>
 		
 		<cfset loc.b = loc.restful.inspect()>
 		
@@ -50,13 +46,13 @@
 		<cfset loc.params = {}>
 		<cfset loc.params["Per"] = "Djurner">
 
-		<cfset loc.restful = createobject("component", loc.path).init(
-			baseurl = loc.domain
+		<cfset loc.restful = createobject("component", request.settings.libPath).init(
+			baseurl = request.settings.domain
 			,headers = loc.headers
 			,params = loc.params
 		)>
 		
-		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#loc.endpoint#")>
+		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#request.settings.endPoint#")>
 		<cfset loc.b = DeserializeJSON(loc.a.filecontent)>
 		
 		<cfset assert("StructKeyExists(loc.b.headers, 'Tony')")>
@@ -75,7 +71,7 @@
 		<cfset loc.restful.before("before_callback")>
 		<cfset loc.restful.after("after_callback_to_json")>
 		
-		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#loc.endpoint#")>
+		<cfset loc.a = loc.restful.makeHttpCall(method="get", endpoint="#request.settings.endPoint#")>
 
 		<cfset assert("StructKeyExists(loc.a, 'cgi')")>
 	</cffunction>
