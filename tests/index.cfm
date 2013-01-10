@@ -7,12 +7,6 @@
 <html>
 <head>
 	<title>Sample unit tests</title>
-	<style>
-		table {
-			font-size:xx-small;
-			font-family:verdana;
-		}
-	</style>
 </head>
 <body>
 	<cfset test = createObject("component", "Test")>
