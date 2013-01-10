@@ -46,9 +46,6 @@ and any defaults that should be pasted with each request (such as headers and/or
 		<cfset StructAppend(loc.defaults.params, arguments)>
 
 		<cfset loc.defaults.baseURL = "https://api.instagram.com/v1/media/popular">
-		
-		<!--- all request are returned json objects --->
-		<cfset after("to_json")>
 
 		<cfreturn super.init(argumentCollection=loc.defaults)>
 	</cffunction>
@@ -94,11 +91,7 @@ Sometimes you will need to intercept the API call. This can be before or after t
 make things easier you can register multiple callback methods using the `before` or `after` methods
 within your wrappers' `init` method. These callbacks will then execute in order.
 
-Below is an example of using an `after` callback to alter the response returned from the API. By
-default the Base component will return the CFHTTP struct. However, most APIs return their reponses in
-JSON and as a convinence you would want to translate the response into native CFML datatypes.
-In order to do this, you can register the built in `to_json` method as an `after` callback. This
-will modify the response so that it will always be a deserialized json object returned.
+Below is an example of registering both an `after` and before callback.
 
 ```coldfusion
 <cffunction name="init">
@@ -112,8 +105,9 @@ will modify the response so that it will always be a deserialized json object re
 
 	<cfset loc.defaults.baseURL = "https://api.instagram.com/v1/media/popular">
 	
-	<!--- all request are returned json objects --->
-	<cfset after("to_json")>
+	<!--- register methods for callback --->
+	<cfset before("my_before_callback_method")>
+	<cfset before("my_after_callback_method")>
 
 	<cfreturn super.init(argumentCollection=loc.defaults)>
 </cffunction>
@@ -134,6 +128,8 @@ Methods
 `after` - register an after callback
 
 `inspect` - returns the variables set on the instance
+
+`register_format_parser` - registers a method to parse the format of the returned API response
 
 
 Usage
